@@ -11,6 +11,45 @@ document.addEventListener('DOMContentLoaded', () => {
 
   let activeCategory = 'Semua';
 
+  // --- Fitur Tema (Dark/Light Mode) ---
+  const themeToggle = document.getElementById('theme-toggle');
+  const themeIcon = document.getElementById('theme-icon');
+
+  function initTheme() {
+    const savedTheme = localStorage.getItem('bookspace_theme') || 'light';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+    themeIcon.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+  }
+
+  themeToggle.addEventListener('click', () => {
+    const currentTheme = document.documentElement.getAttribute('data-theme');
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    
+    document.documentElement.setAttribute('data-theme', newTheme);
+    localStorage.setItem('bookspace_theme', newTheme);
+    themeIcon.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+    showToast(`Tema ${newTheme === 'dark' ? 'Gelap' : 'Terang'} aktif`, 'success');
+  });
+  // --- Akhir Fitur Tema ---
+
+  // --- Fitur Toast Notification ---
+  function showToast(message, type = 'success') {
+    const container = document.getElementById('toast-container');
+    if (!container) return;
+
+    const toast = document.createElement('div');
+    toast.className = `toast ${type}`;
+    toast.innerHTML = `<span>${message}</span>`;
+    
+    container.appendChild(toast);
+    
+    setTimeout(() => {
+      toast.classList.add('hide');
+      toast.addEventListener('animationend', () => toast.remove());
+    }, 3000);
+  }
+  // --- Akhir Fitur Toast ---
+
   // --- Fitur Penyimpanan Buku (localStorage) ---
   const BOOKS_STORAGE_KEY = 'bookspace_books';
   
@@ -53,8 +92,9 @@ document.addEventListener('DOMContentLoaded', () => {
       </div>
       <div class="book-actions">
         <button type="button" class="btn btn-sm btn-detail">Lihat Detail</button>
+        <button type="button" class="btn btn-sm btn-edit">Edit</button>
+        <button type="button" class="btn btn-sm btn-delete">Hapus</button>
         <button type="button" class="btn btn-sm btn-favorite">❤️ Favorit</button>
-        ${book.id.startsWith('book-custom-') ? '<button type="button" class="btn btn-sm btn-edit">✏️ Edit</button>' : ''}
       </div>
     `;
     
@@ -300,7 +340,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     if (bookData.rating < 0 || bookData.rating > 5) {
-      alert('Rating harus antara 0 sampai 5');
+      showToast('Rating harus antara 0 sampai 5', 'error');
       return;
     }
 
@@ -310,7 +350,7 @@ document.addEventListener('DOMContentLoaded', () => {
       // MODE EDIT
       const index = currentStored.findIndex(b => b.id === editingBookId);
       if (index === -1) {
-        alert('Data buku tidak ditemukan!');
+        showToast('Data buku tidak ditemukan!', 'error');
         return;
       }
 
@@ -326,6 +366,7 @@ document.addEventListener('DOMContentLoaded', () => {
         existingCard.innerHTML = tempCard.innerHTML;
         updateFavoriteUI(existingCard);
       }
+      showToast('Buku berhasil diperbarui', 'success');
     } else {
       // MODE TAMBAH
       const newBook = { ...bookData, id: 'book-custom-' + Date.now() };
@@ -335,6 +376,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const newCard = createBookCard(newBook);
       booksGrid.appendChild(newCard);
       updateFavoriteUI(newCard);
+      showToast('Buku baru berhasil ditambah', 'success');
     }
     
     bookCards = document.querySelectorAll('.book-card');
@@ -342,15 +384,7 @@ document.addEventListener('DOMContentLoaded', () => {
     closeAddModal();
   });
 
-  // Integrasi Escape untuk kedua modal
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-      if (modal.classList.contains('active')) closeModal();
-      if (addBookModal.classList.contains('active')) closeAddModal();
-    }
-  });
-
-  // Event Delegation untuk tombol detail & edit
+  // Event Delegation untuk tombol detail & edit & delete
   if (booksGrid) {
     booksGrid.addEventListener('click', (e) => {
       // Tombol Detail
@@ -374,11 +408,83 @@ document.addEventListener('DOMContentLoaded', () => {
           if (bookData) {
             openAddModal(bookData);
           }
+        } else {
+          showToast('Buku bawaan tidak dapat diedit', 'error');
+        }
+        return;
+      }
+
+      // Tombol Delete
+      const deleteBtn = e.target.closest('.btn-delete');
+      if (deleteBtn) {
+        const card = deleteBtn.closest('.book-card');
+        const bookId = card.getAttribute('data-id');
+        
+        if (bookId && bookId.startsWith('book-custom-')) {
+          openDeleteModal(bookId);
+        } else {
+          showToast('Buku bawaan tidak dapat dihapus', 'error');
         }
         return;
       }
     });
   }
+
+  // --- Fitur Delete Confirmation ---
+  let bookIdToDelete = null;
+  const deleteModal = document.getElementById('delete-modal');
+  const confirmDeleteBtn = document.getElementById('confirm-delete');
+  const cancelDeleteBtn = document.getElementById('cancel-delete');
+
+  function openDeleteModal(id) {
+    bookIdToDelete = id;
+    deleteModal.classList.add('active');
+    deleteModal.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('modal-open');
+  }
+
+  function closeDeleteModal() {
+    bookIdToDelete = null;
+    deleteModal.classList.remove('active');
+    deleteModal.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('modal-open');
+  }
+
+  confirmDeleteBtn.addEventListener('click', () => {
+    if (bookIdToDelete) {
+      // 1. Hapus dari LocalStorage
+      let books = getStoredBooks();
+      books = books.filter(b => b.id !== bookIdToDelete);
+      saveBooksToStorage(books);
+
+      // 2. Hapus dari DOM
+      const card = document.querySelector(`.book-card[data-id="${bookIdToDelete}"]`);
+      if (card) card.remove();
+
+      // 3. Cleanup
+      closeDeleteModal();
+      showToast('Buku berhasil dihapus', 'success');
+      
+      // 4. Update daftar bookCards
+      bookCards = document.querySelectorAll('.book-card');
+      filterAndSortBooks();
+    }
+  });
+
+  cancelDeleteBtn.addEventListener('click', closeDeleteModal);
+
+  // Integrasi Escape untuk semua modal
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      if (modal.classList.contains('active')) closeModal();
+      if (addBookModal.classList.contains('active')) closeAddModal();
+      if (deleteModal.classList.contains('active')) closeDeleteModal();
+    }
+  });
+  // --- Akhir Fitur Delete ---
+
+  // Inisialisasi tema saat load
+  initTheme();
   // --- Akhir Fitur Tambah Buku ---
 
   // Helper untuk mengekstrak data aktual dari elemen kartu buku

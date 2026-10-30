@@ -2,6 +2,31 @@
    BookSpace - Fondasi CSS Dasar (Tahap 1)
    ========================================================================== */
 
+/* 1. Definisi Variabel Warna & Tema */
+:root {
+  --bg-body: #f8fafc;
+  --bg-card: #ffffff;
+  --text-main: #1e293b;
+  --text-muted: #64748b;
+  --border-color: #e2e8f0;
+  --accent-color: #2563eb;
+  --accent-hover: #1d4ed8;
+  --accent-text: #ffffff;
+  --toast-success: #22c55e;
+  --toast-error: #ef4444;
+}
+
+[data-theme="dark"] {
+  --bg-body: #0f172a;
+  --bg-card: #1e293b;
+  --text-main: #f1f5f9;
+  --text-muted: #94a3b8;
+  --border-color: #334155;
+  --accent-color: #bef264; /* Lime Green */
+  --accent-hover: #a3e635;
+  --accent-text: #0f172a;
+}
+
 /* 1 & 4. CSS Reset Sederhana & Box-Sizing Global */
 *,
 *::before,
@@ -22,9 +47,10 @@ body {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   font-size: 1rem;
   line-height: 1.6;
-  background-color: #f8fafc;
-  color: #1e293b;
+  background-color: var(--bg-body);
+  color: var(--text-main);
   overflow-x: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* 5. Menghapus Margin Default pada Heading dan Paragraph */
@@ -50,8 +76,8 @@ img {
    ========================================================================== */
 
 .header {
-  background-color: #ffffff;
-  border-bottom: 1px solid #e2e8f0;
+  background-color: var(--bg-card);
+  border-bottom: 1px solid var(--border-color);
 }
 
 .navbar {
@@ -71,7 +97,7 @@ img {
   text-decoration: none;
   font-size: 1.25rem;
   font-weight: 700;
-  color: #0f172a;
+  color: var(--text-main);
 }
 
 .nav-links {
@@ -84,11 +110,11 @@ img {
 .nav-links a {
   text-decoration: none;
   font-weight: 500;
-  color: #475569;
+  color: var(--text-muted);
 }
 
 .nav-links a:hover {
-  color: #2563eb;
+  color: var(--accent-color);
 }
 
 .nav-actions {
@@ -111,12 +137,12 @@ img {
 }
 
 .btn-primary {
-  background-color: #2563eb;
-  color: #ffffff;
+  background-color: var(--accent-color);
+  color: var(--accent-text);
 }
 
 .btn-primary:hover {
-  background-color: #1d4ed8;
+  background-color: var(--accent-hover);
 }
 
 /* ==========================================================================
@@ -124,8 +150,8 @@ img {
    ========================================================================== */
 
 .hero-section {
-  background: linear-gradient(180deg, #ffffff 0%, #f1f5f9 100%);
-  border-bottom: 1px solid #e2e8f0;
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--border-color);
   padding: 4.5rem 1.5rem;
   text-align: center;
 }
@@ -138,7 +164,7 @@ img {
 .hero-title {
   font-size: clamp(1.75rem, 5vw, 3.25rem);
   font-weight: 800;
-  color: #0f172a;
+  color: var(--text-main);
   line-height: 1.25;
   letter-spacing: -0.02em;
   margin-bottom: 1.25rem;
@@ -148,7 +174,7 @@ img {
 .hero-description {
   font-size: 1.125rem;
   line-height: 1.7;
-  color: #475569;
+  color: var(--text-muted);
   max-width: 640px;
   margin: 0 auto 2rem auto;
 }
@@ -165,27 +191,27 @@ img {
   text-decoration: none;
   font-size: 1rem;
   padding: 0.75rem 1.75rem;
-  background-color: #2563eb;
-  color: #ffffff;
+  background-color: var(--accent-color);
+  color: var(--accent-text);
   border: 1.5px solid transparent;
 }
 
 .btn-hero:hover {
-  background-color: #1d4ed8;
+  background-color: var(--accent-hover);
 }
 
 .btn-outline {
   text-decoration: none;
   font-size: 1rem;
   padding: 0.75rem 1.75rem;
-  background-color: #ffffff;
-  color: #2563eb;
-  border: 1.5px solid #cbd5e1;
+  background-color: var(--bg-card);
+  color: var(--accent-color);
+  border: 1.5px solid var(--border-color);
 }
 
 .btn-outline:hover {
-  background-color: #f8fafc;
-  border-color: #2563eb;
+  background-color: var(--bg-body);
+  border-color: var(--accent-color);
 }
 
 /* ==========================================================================
@@ -201,8 +227,8 @@ img {
 .footer {
   width: 100%;
   padding: 3rem 0 1.5rem 0;
-  background-color: #ffffff;
-  border-top: 1px solid #e2e8f0;
+  background-color: var(--bg-card);
+  border-top: 1px solid var(--border-color);
 }
 
 /* Penyelarasan Kontainer Utama (Terpusat di laptop dengan max-width 1200px selaras navbar) */
@@ -258,15 +284,15 @@ img {
   padding: 0.625rem 1rem;
   font-family: inherit;
   font-size: 0.9375rem;
-  color: #0f172a;
-  background-color: #ffffff;
-  border: 1.5px solid #cbd5e1;
+  color: var(--text-main);
+  background-color: var(--bg-card);
+  border: 1.5px solid var(--border-color);
   border-radius: 0.5rem;
   outline: none;
 }
 
 #search-input:focus {
-  border-color: #2563eb;
+  border-color: var(--accent-color);
   box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
 }
 
@@ -276,16 +302,16 @@ img {
   padding: 0.625rem 1rem;
   font-family: inherit;
   font-size: 0.9375rem;
-  color: #334155;
-  background-color: #ffffff;
-  border: 1.5px solid #cbd5e1;
+  color: var(--text-main);
+  background-color: var(--bg-card);
+  border: 1.5px solid var(--border-color);
   border-radius: 0.5rem;
   cursor: pointer;
   outline: none;
 }
 
 #sort-select:focus {
-  border-color: #2563eb;
+  border-color: var(--accent-color);
   box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
 }
 
@@ -294,8 +320,8 @@ img {
   padding: 0.625rem 1.5rem;
   font-size: 0.9375rem;
   font-weight: 600;
-  background-color: #2563eb;
-  color: #ffffff;
+  background-color: var(--accent-color);
+  color: var(--accent-text);
   border: 1.5px solid transparent;
   border-radius: 0.5rem;
   cursor: pointer;
@@ -303,7 +329,7 @@ img {
 }
 
 .btn-search:hover {
-  background-color: #1d4ed8;
+  background-color: var(--accent-hover);
 }
 
 /* ==========================================================================
@@ -317,13 +343,13 @@ img {
 .categories-section .section-header h2 {
   font-size: 1.5rem;
   font-weight: 700;
-  color: #0f172a;
+  color: var(--text-main);
   margin-bottom: 0.375rem;
 }
 
 .categories-section .section-header p {
   font-size: 0.9375rem;
-  color: #64748b;
+  color: var(--text-muted);
 }
 
 .category-list {
@@ -342,29 +368,29 @@ img {
   font-weight: 500;
   padding: 0.5rem 1.125rem;
   border-radius: 9999px;
-  border: 1.5px solid #cbd5e1;
-  background-color: #ffffff;
-  color: #475569;
+  border: 1.5px solid var(--border-color);
+  background-color: var(--bg-card);
+  color: var(--text-muted);
   cursor: pointer;
   white-space: nowrap;
 }
 
 .category-btn:hover {
-  background-color: #f1f5f9;
-  color: #1e293b;
-  border-color: #94a3b8;
+  background-color: var(--bg-body);
+  color: var(--text-main);
+  border-color: var(--text-muted);
 }
 
 .category-btn.active {
-  background-color: #2563eb;
-  color: #ffffff;
-  border-color: #2563eb;
+  background-color: var(--accent-color);
+  color: var(--accent-text);
+  border-color: var(--accent-color);
   font-weight: 600;
 }
 
 .category-btn.active:hover {
-  background-color: #1d4ed8;
-  border-color: #1d4ed8;
+  background-color: var(--accent-hover);
+  border-color: var(--accent-hover);
 }
 
 /* ==========================================================================
@@ -378,13 +404,13 @@ img {
 .collection-section .section-header h2 {
   font-size: 1.5rem;
   font-weight: 700;
-  color: #0f172a;
+  color: var(--text-main);
   margin-bottom: 0.375rem;
 }
 
 .collection-section .section-header p {
   font-size: 0.9375rem;
-  color: #64748b;
+  color: var(--text-muted);
 }
 
 .books-grid {
@@ -394,8 +420,8 @@ img {
 }
 
 .book-card {
-  background-color: #ffffff;
-  border: 1px solid #e2e8f0;
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
   border-radius: 0.75rem;
   overflow: hidden;
   display: flex;
@@ -406,14 +432,14 @@ img {
 
 .book-card:hover {
   box-shadow: 0 6px 12px -2px rgba(0, 0, 0, 0.08);
-  border-color: #cbd5e1;
+  border-color: var(--text-muted);
 }
 
 .book-cover {
   position: relative;
   width: 100%;
   height: 220px;
-  background-color: #f1f5f9;
+  background-color: var(--bg-body);
   overflow: hidden;
 }
 
@@ -433,8 +459,8 @@ img {
   font-weight: 600;
   padding: 0.25rem 0.625rem;
   border-radius: 9999px;
-  background-color: #2563eb;
-  color: #ffffff;
+  background-color: var(--accent-color);
+  color: var(--accent-text);
 }
 
 .book-details {
@@ -447,7 +473,7 @@ img {
 .book-title {
   font-size: 1.125rem;
   font-weight: 700;
-  color: #0f172a;
+  color: var(--text-main);
   line-height: 1.35;
   margin-bottom: 0.375rem;
   overflow-wrap: break-word;
@@ -456,14 +482,14 @@ img {
 .book-author {
   font-size: 0.875rem;
   font-weight: 500;
-  color: #64748b;
+  color: var(--text-muted);
   margin-bottom: 0.75rem;
   overflow-wrap: break-word;
 }
 
 .book-synopsis {
   font-size: 0.875rem;
-  color: #475569;
+  color: var(--text-muted);
   line-height: 1.5;
   margin-bottom: 1rem;
   overflow-wrap: break-word;
@@ -476,7 +502,7 @@ img {
   font-size: 0.8125rem;
   margin-top: auto;
   padding-top: 0.75rem;
-  border-top: 1px solid #f1f5f9;
+  border-top: 1px solid var(--border-color);
 }
 
 .book-rating {
@@ -485,7 +511,7 @@ img {
 }
 
 .book-year {
-  color: #94a3b8;
+  color: var(--text-muted);
 }
 
 .book-actions {
@@ -501,14 +527,14 @@ img {
 
 .btn-detail {
   flex: 1;
-  background-color: #f1f5f9;
-  color: #1e293b;
-  border: 1.5px solid #e2e8f0;
+  background-color: var(--bg-body);
+  color: var(--text-main);
+  border: 1.5px solid var(--border-color);
 }
 
 .btn-detail:hover {
-  background-color: #e2e8f0;
-  color: #0f172a;
+  background-color: var(--border-color);
+  color: var(--text-main);
 }
 
 .btn-edit {
@@ -523,9 +549,9 @@ img {
 }
 
 .btn-favorite {
-  background-color: #ffffff;
-  color: #475569;
-  border: 1.5px solid #e2e8f0;
+  background-color: var(--bg-card);
+  color: var(--text-muted);
+  border: 1.5px solid var(--border-color);
   white-space: nowrap;
 }
 
@@ -559,20 +585,20 @@ img {
 .footer-logo {
   font-size: 1.25rem;
   font-weight: 700;
-  color: #0f172a;
+  color: var(--text-main);
   margin-bottom: 0.75rem;
 }
 
 .footer-tagline {
   font-size: 0.9375rem;
-  color: #64748b;
+  color: var(--text-muted);
   line-height: 1.6;
 }
 
 .footer-links h4 {
   font-size: 0.9375rem;
   font-weight: 600;
-  color: #0f172a;
+  color: var(--text-main);
   margin-bottom: 1rem;
 }
 
@@ -586,22 +612,22 @@ img {
 .footer-links a {
   text-decoration: none;
   font-size: 0.875rem;
-  color: #64748b;
+  color: var(--text-muted);
 }
 
 .footer-links a:hover {
-  color: #2563eb;
+  color: var(--accent-color);
 }
 
 .footer-bottom {
   padding-top: 1.5rem;
-  border-top: 1px solid #f1f5f9;
+  border-top: 1px solid var(--border-color);
   text-align: center;
 }
 
 .footer-bottom p {
   font-size: 0.875rem;
-  color: #94a3b8;
+  color: var(--text-muted);
 }
 
 /* ==========================================================================
@@ -758,7 +784,7 @@ img {
 
 .modal-container {
   position: relative;
-  background-color: #ffffff;
+  background-color: var(--bg-card);
   width: 90%;
   max-width: 800px;
   max-height: 90vh;
@@ -781,14 +807,14 @@ img {
   font-size: 2rem;
   background: none;
   border: none;
-  color: #64748b;
+  color: var(--text-muted);
   cursor: pointer;
   z-index: 1020;
   line-height: 1;
 }
 
 .modal-close:hover {
-  color: #1e293b;
+  color: var(--text-main);
 }
 
 .modal-content {
@@ -824,14 +850,14 @@ img {
 #modal-title {
   font-size: 1.75rem;
   font-weight: 800;
-  color: #0f172a;
+  color: var(--text-main);
   line-height: 1.2;
   margin-bottom: 0.5rem;
 }
 
 .modal-author-text {
   font-size: 1.125rem;
-  color: #64748b;
+  color: var(--text-muted);
   margin-bottom: 1.25rem;
 }
 
@@ -848,25 +874,25 @@ img {
 }
 
 #modal-year {
-  color: #64748b;
+  color: var(--text-muted);
 }
 
 .modal-divider {
   height: 1px;
-  background-color: #e2e8f0;
+  background-color: var(--border-color);
   margin-bottom: 1.5rem;
 }
 
 .modal-synopsis-container h3 {
   font-size: 1rem;
   font-weight: 700;
-  color: #0f172a;
+  color: var(--text-main);
   margin-bottom: 0.75rem;
 }
 
 #modal-synopsis {
   font-size: 0.9375rem;
-  color: #475569;
+  color: var(--text-muted);
   line-height: 1.7;
 }
 
@@ -908,7 +934,7 @@ body.modal-open {
   display: block;
   font-size: 0.875rem;
   font-weight: 600;
-  color: #334155;
+  color: var(--text-main);
   margin-bottom: 0.5rem;
 }
 
@@ -919,17 +945,17 @@ body.modal-open {
   padding: 0.625rem 0.875rem;
   font-family: inherit;
   font-size: 0.9375rem;
-  border: 1.5px solid #cbd5e1;
+  border: 1.5px solid var(--border-color);
   border-radius: 0.5rem;
   outline: none;
-  background-color: #ffffff;
-  color: #1e293b;
+  background-color: var(--bg-card);
+  color: var(--text-main);
 }
 
 .form-group input:focus,
 .form-group select:focus,
 .form-group textarea:focus {
-  border-color: #2563eb;
+  border-color: var(--accent-color);
   box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
 }
 
@@ -955,6 +981,48 @@ body.modal-open {
     grid-template-columns: 1fr;
     gap: 0;
   }
+}
+
+/* ==========================================================================
+   Toast Notification & Delete Guard
+   ========================================================================== */
+
+#toast-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 9999;
+}
+
+.toast {
+  min-width: 250px;
+  padding: 1rem 1.5rem;
+  margin-top: 10px;
+  border-radius: 0.5rem;
+  color: white;
+  font-weight: 600;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  animation: slideIn 0.3s ease forwards;
+}
+
+.toast.success { background-color: var(--toast-success); }
+.toast.error { background-color: var(--toast-error); }
+
+.toast.hide {
+  animation: slideOut 0.3s ease forwards;
+}
+
+@keyframes slideIn {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slideOut {
+  from { transform: translateX(0); opacity: 1; }
+  to { transform: translateX(100%); opacity: 0; }
 }
 
 

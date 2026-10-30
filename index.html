@@ -21,6 +21,9 @@
         <li><a href="#about">Tentang</a></li>
       </ul>
       <div class="nav-actions">
+        <button id="theme-toggle" class="btn btn-outline" style="margin-right: 10px;" aria-label="Ganti Tema">
+          <span id="theme-icon">🌙</span>
+        </button>
         <button type="button" id="btn-add-book" class="btn btn-primary">+ Tambah Buku</button>
       </div>
     </nav>
@@ -290,6 +293,26 @@
       </div>
     </div>
   </div>
+
+  <!-- Modal Konfirmasi Hapus -->
+  <div id="delete-modal" class="modal" aria-hidden="true">
+    <div class="modal-overlay"></div>
+    <div class="modal-container" style="max-width: 400px;">
+      <div class="modal-content" style="text-align: center;">
+        <h3 style="margin-bottom: 1rem;">Hapus Buku?</h3>
+        <p style="color: var(--text-muted); margin-bottom: 2rem;">
+          Apakah Anda yakin ingin menghapus buku ini? Tindakan ini tidak dapat dibatalkan.
+        </p>
+        <div style="display: flex; gap: 10px; justify-content: center;">
+          <button id="cancel-delete" class="btn btn-outline">Batal</button>
+          <button id="confirm-delete" class="btn btn-primary" style="background-color: var(--toast-error) !important; color: white !important;">Ya, Hapus</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Container untuk Toast -->
+  <div id="toast-container"></div>
 
   <!-- 6. Footer -->
   <footer class="footer" id="about">
