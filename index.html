@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BookSpace - Katalog Buku Digital</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- 1. Header & Navigasi -->
+  <header class="header">
+    <nav class="navbar" aria-label="Navigasi Utama">
+      <div class="nav-brand">
+        <a href="#hero" class="logo">📚 BookSpace</a>
+      </div>
+      <ul class="nav-links">
+        <li><a href="#hero">Beranda</a></li>
+        <li><a href="#categories">Kategori</a></li>
+        <li><a href="#collection">Koleksi Buku</a></li>
+        <li><a href="#about">Tentang</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button type="button" id="btn-add-book" class="btn btn-primary">+ Tambah Buku</button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Konten Utama -->
+  <main id="main-content">
+
+    <!-- 2. Hero Section -->
+    <section class="hero-section" id="hero">
+      <div class="hero-content">
+        <h1 class="hero-title">Temukan & Kelola Bacaan Favoritmu</h1>
+        <p class="hero-description">
+          BookSpace adalah katalog buku digital sederhana untuk menjelajahi berbagai referensi bacaan, 
+          menyimpan koleksi buku favorit, dan memperluas wawasan Anda.
+        </p>
+        <div class="hero-actions">
+          <a href="#collection" class="btn btn-hero">Jelajahi Koleksi</a>
+          <a href="#categories" class="btn btn-outline">Lihat Kategori</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. Kolom Pencarian & Filter -->
+    <section class="search-section" id="search" aria-label="Pencarian Buku">
+      <div class="search-container">
+        <form class="search-form" role="search" onsubmit="return false;">
+          <label for="search-input" class="visually-hidden">Cari judul buku atau penulis</label>
+          <input 
+            type="search" 
+            id="search-input" 
+            name="q" 
+            placeholder="Cari judul buku, penulis, atau kata kunci..." 
+            autocomplete="off"
+          >
+          <select id="sort-select" aria-label="Urutkan Koleksi">
+            <option value="latest">Terbaru</option>
+            <option value="title-asc">Judul (A - Z)</option>
+            <option value="title-desc">Judul (Z - A)</option>
+            <option value="rating">Rating Tertinggi</option>
+          </select>
+          <button type="submit" class="btn btn-search">Cari</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- 4. Bagian Kategori Buku -->
+    <section class="categories-section" id="categories">
+      <div class="section-header">
+        <h2>Kategori Buku</h2>
+        <p>Pilih kategori untuk memfilter koleksi buku</p>
+      </div>
+      <div class="category-list">
+        <button type="button" class="category-btn active">Semua</button>
+        <button type="button" class="category-btn">Teknologi</button>
+        <button type="button" class="category-btn">Pengembangan Diri</button>
+        <button type="button" class="category-btn">Fiksi</button>
+        <button type="button" class="category-btn">Bisnis & Keuangan</button>
+        <button type="button" class="category-btn">Sains</button>
+      </div>
+    </section>
+
+    <!-- 5. Bagian Koleksi Buku -->
+    <section class="collection-section" id="collection">
+      <div class="section-header">
+        <h2>Koleksi Buku</h2>
+        <p>Daftar buku yang tersedia dalam katalog BookSpace</p>
+      </div>
+
+      <div class="books-grid">
+
+        <!-- Kartu Buku 1 -->
+        <article class="book-card" data-id="book-1">
+          <div class="book-cover">
+            <img 
+              src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=400&auto=format&fit=crop&q=80" 
+              alt="Sampul buku The Pragmatic Programmer"
+              loading="lazy"
+            >
+            <span class="badge badge-category">Teknologi</span>
+          </div>
+          <div class="book-details">
+            <h3 class="book-title">The Pragmatic Programmer</h3>
+            <p class="book-author">David Thomas &amp; Andrew Hunt</p>
+            <p class="book-synopsis">
+              Panduan esensial dan praktis bagi developer untuk mengasah keterampilan teknis dan profesionalitas dalam pembuatan software.
+            </p>
+            <div class="book-meta">
+              <span class="book-rating">⭐ 4.8 / 5.0</span>
+              <span class="book-year">1999</span>
+            </div>
+          </div>
+          <div class="book-actions">
+            <button type="button" class="btn btn-sm btn-detail">Lihat Detail</button>
+            <button type="button" class="btn btn-sm btn-favorite">❤️ Favorit</button>
+          </div>
+        </article>
+
+        <!-- Kartu Buku 2 -->
+        <article class="book-card" data-id="book-2">
+          <div class="book-cover">
+            <img 
+              src="https://images.unsplash.com/photo-1589829085413-56de8ae18c73?w=400&auto=format&fit=crop&q=80" 
+              alt="Sampul buku Atomic Habits"
+              loading="lazy"
+            >
+            <span class="badge badge-category">Pengembangan Diri</span>
+          </div>
+          <div class="book-details">
+            <h3 class="book-title">Atomic Habits</h3>
+            <p class="book-author">James Clear</p>
+            <p class="book-synopsis">
+              Cara mudah dan terbukti untuk membangun kebiasaan baik serta menghilangkan kebiasaan buruk dengan prinsip perubahan kecil bertahap.
+            </p>
+            <div class="book-meta">
+              <span class="book-rating">⭐ 4.9 / 5.0</span>
+              <span class="book-year">2018</span>
+            </div>
+          </div>
+          <div class="book-actions">
+            <button type="button" class="btn btn-sm btn-detail">Lihat Detail</button>
+            <button type="button" class="btn btn-sm btn-favorite">❤️ Favorit</button>
+          </div>
+        </article>
+
+        <!-- Kartu Buku 3 -->
+        <article class="book-card" data-id="book-3">
+          <div class="book-cover">
+            <img 
+              src="https://images.unsplash.com/photo-1512820790803-83ca734da794?w=400&auto=format&fit=crop&q=80" 
+              alt="Sampul buku Clean Code"
+              loading="lazy"
+            >
+            <span class="badge badge-category">Teknologi</span>
+          </div>
+          <div class="book-details">
+            <h3 class="book-title">Clean Code</h3>
+            <p class="book-author">Robert C. Martin</p>
+            <p class="book-synopsis">
+              Pedoman standar industri tentang cara menulis kode yang bersih, mudah dibaca, mudah diuji, dan berdaya tahan lama.
+            </p>
+            <div class="book-meta">
+              <span class="book-rating">⭐ 4.7 / 5.0</span>
+              <span class="book-year">2008</span>
+            </div>
+          </div>
+          <div class="book-actions">
+            <button type="button" class="btn btn-sm btn-detail">Lihat Detail</button>
+            <button type="button" class="btn btn-sm btn-favorite">❤️ Favorit</button>
+          </div>
+        </article>
+
+        <!-- Kartu Buku 4 -->
+        <article class="book-card" data-id="book-4">
+          <div class="book-cover">
+            <img 
+              src="https://images.unsplash.com/photo-1543002588-bfa74002ed7e?w=400&auto=format&fit=crop&q=80" 
+              alt="Sampul novel Laskar Pelangi"
+              loading="lazy"
+            >
+            <span class="badge badge-category">Fiksi</span>
+          </div>
+          <div class="book-details">
+            <h3 class="book-title">Laskar Pelangi</h3>
+            <p class="book-author">Andrea Hirata</p>
+            <p class="book-synopsis">
+              Kisah persahabatan dan perjuangan sepuluh anak di Belitung dalam menuntut ilmu dan menggapai cita-cita dengan penuh ketabahan.
+            </p>
+            <div class="book-meta">
+              <span class="book-rating">⭐ 4.6 / 5.0</span>
+              <span class="book-year">2005</span>
+            </div>
+          </div>
+          <div class="book-actions">
+            <button type="button" class="btn btn-sm btn-detail">Lihat Detail</button>
+            <button type="button" class="btn btn-sm btn-favorite">❤️ Favorit</button>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Modal Detail Buku -->
+  <div id="book-detail-modal" class="modal" aria-hidden="true" role="dialog" aria-labelledby="modal-title">
+    <div class="modal-overlay"></div>
+    <div class="modal-container">
+      <button class="modal-close" aria-label="Tutup modal">&times;</button>
+      <div class="modal-content">
+        <div class="modal-body">
+          <div class="modal-image">
+            <img id="modal-cover" src="" alt="Sampul Buku">
+          </div>
+          <div class="modal-info">
+            <span id="modal-category" class="badge badge-category"></span>
+            <h2 id="modal-title">Judul Buku</h2>
+            <p id="modal-author" class="modal-author-text">Penulis Buku</p>
+            
+            <div class="modal-meta">
+              <span id="modal-rating">⭐ 0.0 / 5.0</span>
+              <span id="modal-year">Tahun: -</span>
+            </div>
+
+            <div class="modal-divider"></div>
+            
+            <div class="modal-synopsis-container">
+              <h3>Sinopsis</h3>
+              <p id="modal-synopsis">Detail sinopsis buku akan muncul di sini.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Tambah Buku -->
+  <div id="add-book-modal" class="modal" aria-hidden="true" role="dialog" aria-labelledby="add-modal-title">
+    <div class="modal-overlay"></div>
+    <div class="modal-container">
+      <button class="modal-close" aria-label="Tutup modal">&times;</button>
+      <div class="modal-content">
+        <h2 id="add-modal-title" style="margin-bottom: 1.5rem;">Tambah Buku Baru</h2>
+        <form id="add-book-form">
+          <div class="form-group">
+            <label for="book-title-input">Judul Buku</label>
+            <input type="text" id="book-title-input" required placeholder="Masukkan judul buku">
+          </div>
+          <div class="form-group">
+            <label for="book-author-input">Penulis</label>
+            <input type="text" id="book-author-input" required placeholder="Nama penulis">
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="book-category-input">Kategori</label>
+              <select id="book-category-input" required>
+                <option value="">Pilih Kategori</option>
+                <option value="Teknologi">Teknologi</option>
+                <option value="Pengembangan Diri">Pengembangan Diri</option>
+                <option value="Fiksi">Fiksi</option>
+                <option value="Bisnis & Keuangan">Bisnis & Keuangan</option>
+                <option value="Sains">Sains</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="book-year-input">Tahun Terbit</label>
+              <input type="number" id="book-year-input" required placeholder="Contoh: 2024">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="book-rating-input">Rating (0 - 5.0)</label>
+            <input type="number" id="book-rating-input" step="0.1" min="0" max="5" required placeholder="Contoh: 4.5">
+          </div>
+          <div class="form-group">
+            <label for="book-cover-input">URL Cover Buku</label>
+            <input type="url" id="book-cover-input" required placeholder="https://images.unsplash.com/...">
+          </div>
+          <div class="form-group">
+            <label for="book-synopsis-input">Sinopsis</label>
+            <textarea id="book-synopsis-input" required rows="4" placeholder="Ringkasan cerita atau isi buku..."></textarea>
+          </div>
+          <div class="form-actions">
+            <button type="button" class="btn btn-outline btn-cancel">Batal</button>
+            <button type="submit" class="btn btn-primary">Simpan Buku</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. Footer -->
+  <footer class="footer" id="about">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <h3 class="footer-logo">📚 BookSpace</h3>
+        <p class="footer-tagline">Platform katalog buku digital sederhana untuk inspirasi dan referensi belajar harian.</p>
+      </div>
+
+      <div class="footer-links">
+        <h4>Navigasi</h4>
+        <ul>
+          <li><a href="#hero">Beranda</a></li>
+          <li><a href="#categories">Kategori</a></li>
+          <li><a href="#collection">Koleksi</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-links">
+        <h4>Kategori</h4>
+        <ul>
+          <li><a href="#categories">Teknologi</a></li>
+          <li><a href="#categories">Pengembangan Diri</a></li>
+          <li><a href="#categories">Fiksi</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; 2026 BookSpace. Dibuat untuk latihan web development.</p>
+    </div>
+  </footer>
+
+  <!-- Script JS (belum diisi logika) -->
+  <script src="script.js"></script>
+</body>
+</html>
